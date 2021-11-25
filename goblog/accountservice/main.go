@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 
+// how to organize the package, repository etc: https://go.dev/doc/code
+
 	"github.com/golang-microservice/goblog/accountservice/service"
 )
 var appName = "accountservice"
