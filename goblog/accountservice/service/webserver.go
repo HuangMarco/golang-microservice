@@ -25,9 +25,6 @@ func forTestAPI(path string){
 func StartWebServer(port string) error {
 	log.Println("Startig the web server at port:", port)
 
-	r := NewRouter()
-	http.Handle("/", r)
-
 	// For http.ServeMux: https://pkg.go.dev/net/http#ServeMux
 	err := http.ListenAndServe(":" + port, RequestHandler(port))
 	if err != nil {
@@ -40,6 +37,11 @@ func StartWebServer(port string) error {
 
 // How to use ServeMux: https://pkg.go.dev/net/http#ServeMux.Handle
 func RequestHandler(port string) http.Handler {
+
+
+	r := NewRouter()
+	r.HandleFunc("/accounts/v2/",AccountHandler)
+	http.Handle("/accounts/", r)
 
 	//也可以将处理特定api部分封装到routes.go中
 

@@ -1,7 +1,7 @@
 package service
 
 import (
-	// "fmt"
+	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -25,7 +25,7 @@ var routes = Routes{
 	Route{
 		Name: "GetAccount",
 		Method: "GET",
-		Pattern: "/account/{accountId}",
+		Pattern: "/accounts/{accountId}",
 		HandlerFunc: func(w http.ResponseWriter, r *http.Request){
 			w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 			// w.Write([]byte("{\"result\": {\"OK\"}}"))
@@ -44,17 +44,9 @@ var routes = Routes{
 	},
 }
 
-//使用Gorrila Router: https://github.com/gorilla/mux#overview
-//返回一个指针对象，该对象是一个Girilla Router
-func NewRouter() *mux.Router {
-
-	//创建Gorilla Router的一个实例
-	router := mux.NewRouter().StrictSlash(true)
-
-	for _, route := range routes {
-		//Attach each route, uses a Builder-like pattern to set each route up
-		router.Methods(route.Method).Path(route.Pattern).Name(route.Name).Handler(route.HandlerFunc)
-	}
-
-	return router
+func AccountHandler(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+  w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Category: %v\n", vars["category"])
 }
+
